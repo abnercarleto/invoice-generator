@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe Identity::User, type: :model do
   it { is_expected.to have_secure_token(:token) }
 
   describe 'validations' do
-    subject { build(:user) }
+    subject { build(:identity_user) }
 
     it { is_expected.to allow_value('example@email.com').for(:email) }
     it { is_expected.to_not allow_value('example.email.com').for(:email) }
