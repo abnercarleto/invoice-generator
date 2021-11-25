@@ -1,5 +1,9 @@
 version: "3.9"
 services:
+  smtp:
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
   db:
     image: postgres
     volumes:
@@ -7,6 +11,8 @@ services:
     environment:
       POSTGRES_PASSWORD: password
   api:
+    stdin_open: true
+    tty: true
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -17,6 +23,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - smtp
 
 volumes:
   db-data:
