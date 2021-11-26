@@ -3,11 +3,9 @@ module Identity
     attributes :email
 
     def call!
-      if generate_token
-        Success result: { token: user.token }
-      else
-        Failure result: { errors: user.errors.messages }
-      end
+      return Success result: { token: user.token } if generate_token
+
+      Failure result: { errors: user.errors.messages }
     end
 
     private
