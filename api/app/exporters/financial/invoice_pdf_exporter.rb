@@ -6,6 +6,10 @@ module Financial
       def call(**kwargs)
         new(**kwargs).call!
       end
+
+      def type
+        :pdf
+      end
     end
 
     def initialize(invoice:)
