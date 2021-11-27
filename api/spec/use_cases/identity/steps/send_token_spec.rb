@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Identity::SendToken, type: :use_case do
+RSpec.describe Identity::Steps::SendToken, type: :use_case do
   describe '.call' do
     let(:user_mailer) { class_spy('mailer', 'Identity::UserMailer') }
     let(:identity_user) { build_stubbed(:identity_user, token: SecureRandom.hex) }

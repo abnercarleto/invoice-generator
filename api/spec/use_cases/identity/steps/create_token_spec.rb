@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Identity::CreateToken, type: :use_case do
+RSpec.describe Identity::Steps::CreateToken, type: :use_case do
   describe '.call' do
     subject(:perform_use_case) { described_class.call(email: email, permit_regenerate: permit_regenerate) }
 
