@@ -1,11 +1,12 @@
 module Identity
   class CreateToken < Micro::Case
-    attributes :email
+    attributes :email, :permit_regenerate
 
     def call!
-      return Success result: { token: user.token } if generate_token
+      return generate_token if !user.persisted?
+      return regenerate_token if permit_regenerate
 
-      Failure result: { errors: user.errors.messages }
+      Failure :token_already_generated
     end
 
     private
@@ -14,10 +15,19 @@ module Identity
       @user ||= User.find_or_initialize_by(email: email)
     end
 
-    def generate_token
-      return user.save unless user.persisted?
+    def success_result
+      Success result: { email: user.email, token: user.token }
+    end
 
-      return user.regenerate_token
+    def generate_token
+      return success_result if user.save
+
+      Failure :cannot_generate_token, result: { errors: user.errors.messages }
+    end
+
+    def regenerate_token
+      user.regenerate_token
+      success_result
     end
   end
 end
