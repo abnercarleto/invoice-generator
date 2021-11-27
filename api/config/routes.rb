@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resource :auth, controller: :auth, only: [] do
         collection do
           post :token, action: :generate_token
+          get :validate, action: :validate_token
         end
       end
     end

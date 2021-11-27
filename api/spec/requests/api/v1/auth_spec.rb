@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Auths", type: :request do
+  let(:json_body) { JSON.parse(response.body) }
+
   describe "POST /api/v1/auth/token" do
     let(:email) { "user-#{SecureRandom.hex(5)}@email.com" }
-    let(:json_body) { JSON.parse(response.body) }
 
     context 'when user is new' do
       it 'create token for new user' do
@@ -44,6 +45,30 @@ RSpec.describe "Api::V1::Auths", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           expect(json_body).to eq({ 'errors' => { 'email' => ['is invalid'] } })
+      end
+    end
+  end
+
+  describe 'GET /api/v1/auth/validate' do
+    context 'when token is valid' do
+      let(:token) { create(:identity_user).token }
+
+      it 'create token for new user' do
+        get '/api/v1/auth/validate', params: { token: token }
+
+        expect(response).to have_http_status(:ok)
+        expect(json_body).to eq({ 'validated' => true })
+      end
+    end
+
+    context 'when token is not valid' do
+      let(:token) { SecureRandom.hex }
+
+      it 'create token for new user' do
+        get '/api/v1/auth/validate', params: { token: token }
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(json_body).to eq({ 'validated' => false })
       end
     end
   end
