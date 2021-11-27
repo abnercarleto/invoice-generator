@@ -34,7 +34,7 @@ RSpec.describe Identity::Steps::CreateToken, type: :use_case do
       end
     end
 
-    context 'when user is persisted and cannot generate token' do
+    context 'when user is persisted and token was generated and not permit regenrate' do
       let(:permit_regenerate) { false }
       let!(:identity_user) { create(:identity_user, email: email) }
 
@@ -59,9 +59,41 @@ RSpec.describe Identity::Steps::CreateToken, type: :use_case do
       end
     end
 
-    context 'when user is persisted and token is regenerated' do
+    context 'when user is persisted and token was generated and permit regenrate' do
       let(:permit_regenerate) { true }
       let!(:identity_user) { create(:identity_user, email: email) }
+
+      it { expect { perform_use_case }.to_not change { Identity::User.where(email: email).count }.from(1) }
+      it { expect { perform_use_case }.to change { Identity::User.find_by(email: email).token } }
+
+      describe 'result' do
+        it { is_expected.to be_a Micro::Case::Result }
+        it { is_expected.to be_success }
+
+        describe '#type' do
+          subject { perform_use_case.type }
+
+          it { is_expected.to eq :ok }
+        end
+
+        describe '#data' do
+          subject(:get_data) { perform_use_case.data }
+
+          it do
+            is_expected.to eq({
+              email: email,
+              token: Identity::User.find_by(email: email).token
+            })
+          end
+        end
+      end
+    end
+
+    context 'when user is persisted and token was not generated and permit regenrate' do
+      let(:permit_regenerate) { false }
+      let!(:identity_user) do
+        create(:identity_user, email: email).tap { |user| user.update!(token: nil) }
+      end
 
       it { expect { perform_use_case }.to_not change { Identity::User.where(email: email).count }.from(1) }
       it { expect { perform_use_case }.to change { Identity::User.find_by(email: email).token } }

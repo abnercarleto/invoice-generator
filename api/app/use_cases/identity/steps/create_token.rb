@@ -4,7 +4,7 @@ module Identity
       attributes :email, :permit_regenerate
 
       def call!
-        return generate_token if !user.persisted?
+        return generate_token if user.token.blank?
         return regenerate_token if permit_regenerate
 
         Failure :token_already_generated
@@ -21,7 +21,7 @@ module Identity
       end
 
       def generate_token
-        return success_result if user.save
+        return success_result if user.persisted? ? user.regenerate_token : user.save
 
         Failure :cannot_generate_token, result: { errors: user.errors.messages }
       end
