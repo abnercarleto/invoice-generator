@@ -10,6 +10,8 @@ services:
       - db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
   api:
     stdin_open: true
     tty: true

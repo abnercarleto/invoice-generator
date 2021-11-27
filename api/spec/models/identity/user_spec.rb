@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe Identity::User, type: :model do
   it { is_expected.to have_secure_token(:token) }
 
+  describe 'associations' do
+    it { is_expected.to have_many(:invoices).class_name('Financial::Invoice').inverse_of(:user) }
+  end
+
   describe 'validations' do
     subject { build(:identity_user) }
 
