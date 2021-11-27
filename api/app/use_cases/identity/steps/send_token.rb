@@ -1,15 +1,15 @@
 module Identity
   module Steps
     class SendToken < Micro::Case
-      attributes :identity_user
+      attributes :email, :token
 
       def call!
-        Identity::UserMailer.with(
-          email: identity_user.email,
-          token: identity_user.token
-        ).new_token.deliver_now
+        Identity::UserMailer.
+          with(email: email, token: token).
+          new_token.
+          deliver_now
 
-        Success()
+        Success result: { sent_to: email }
       end
     end
   end

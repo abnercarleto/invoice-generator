@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe Identity::Steps::SendToken, type: :use_case do
   describe '.call' do
     let(:user_mailer) { class_spy('mailer', 'Identity::UserMailer') }
-    let(:identity_user) { build_stubbed(:identity_user, token: SecureRandom.hex) }
+    let(:email) { "user-#{SecureRandom.hex(5)}@email.com" }
+    let(:token) { SecureRandom.hex }
 
-    subject(:perform_use_case) { described_class.call(identity_user: identity_user) }
+    subject(:perform_use_case) { described_class.call(email: email, token: token) }
 
     before(:each) { stub_const('Identity::UserMailer', user_mailer) }
 
@@ -16,7 +17,7 @@ RSpec.describe Identity::Steps::SendToken, type: :use_case do
       describe '#data' do
         subject { perform_use_case.data }
 
-        it { is_expected.to eq({ ok: true }) }
+        it { is_expected.to eq({ sent_to: email }) }
       end
     end
 
@@ -25,12 +26,7 @@ RSpec.describe Identity::Steps::SendToken, type: :use_case do
 
       subject { user_mailer }
 
-      it do
-        is_expected.to have_received(:with).with(
-          email: identity_user.email,
-          token: identity_user.token
-        )
-      end
+      it { is_expected.to have_received(:with).with(email: email, token: token) }
       it { is_expected.to have_received(:new_token) }
       it { is_expected.to have_received(:deliver_now) }
     end
