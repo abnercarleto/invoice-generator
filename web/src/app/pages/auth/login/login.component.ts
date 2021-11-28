@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.invoiceClient.login(token).subscribe({
       next: successData => {
         this.authService.setLoggedIn(token);
-        this.router.navigate(['/invoices/new']);
+        this.router.navigate(['/']);
       },
       error: errorData => {
         if (errorData.status == 401) {

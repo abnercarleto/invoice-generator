@@ -7,6 +7,11 @@ import { NewComponent as InvoiceNewComponent } from './pages/invoice/new/new.com
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/invoices/new',
+    pathMatch: 'full'
+  },
+  {
     path: 'auth',
     children: [
       {
