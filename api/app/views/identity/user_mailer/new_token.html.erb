@@ -1,6 +1,8 @@
 <p>
-  Seu token é <code><%= @token %><code>.
+  Your token is <code><%= @token %><code>
 </p>
 <p>
-  Acesse o link #TODO(incluir link) para autenticar.
+  <a href='<%= "#{Rails.configuration.x.frontend.host}/auth/login" %>'>
+    Access login
+  </a>
 </P>
