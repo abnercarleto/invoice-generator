@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_130447) do
+ActiveRecord::Schema.define(version: 2021_11_28_103920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2021_11_27_130447) do
     t.text "company_data", null: false
     t.text "billing_for", null: false
     t.integer "total_value_cents", null: false
-    t.string "emails", default: [], null: false, array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["date"], name: "index_invoices_on_date"
