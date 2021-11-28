@@ -13,13 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { CreateComponent } from './pages/invoice/create/create.component';
+import { NewComponent } from './pages/invoice/new/new.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CreateComponent
+    NewComponent
   ],
   imports: [
     BrowserModule,
