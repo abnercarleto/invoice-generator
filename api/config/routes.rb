@@ -9,6 +9,8 @@ Rails.application.routes.draw do
           get :validate, action: :validate_token
         end
       end
+
+      resources :invoices, only: %i(create)
     end
   end
 end
