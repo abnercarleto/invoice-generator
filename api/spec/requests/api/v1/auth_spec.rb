@@ -72,4 +72,28 @@ RSpec.describe "Api::V1::Auths", type: :request do
       end
     end
   end
+
+  describe 'DELETE /api/v1/auth/token' do
+    context 'when user is not authorized' do
+      it 'unauthorize request' do
+        headers = { 'x-auth-token' => SecureRandom.hex }
+        delete '/api/v1/auth/token', headers: headers
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(json_body).to be_blank
+      end
+    end
+
+    context 'when user is authorized' do
+      let(:token) { create(:identity_user).token }
+
+      it 'empty request' do
+        headers = { 'x-auth-token' => token }
+        delete '/api/v1/auth/token', headers: headers
+
+        expect(response).to have_http_status(:ok)
+        expect(json_body).to be_blank
+      end
+    end
+  end
 end
