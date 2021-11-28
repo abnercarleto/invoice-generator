@@ -4,14 +4,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = false;
+  isLoggedIn: Boolean = false;
+  token: String | undefined | null = null;
 
   redirectUrl: string | null = null;
 
   constructor() { }
 
-  setLoggedIn() {
+  setLoggedIn(token: String) {
     this.isLoggedIn = true;
+    this.token = token;
   }
 
   setLoggedOut() {

@@ -1,1 +1,59 @@
-<p>new works!</p>
+<div class="">
+  <mat-card>
+    <mat-card-title>New Invoice</mat-card-title>
+
+    <form [formGroup]="invoiceForm" (ngSubmit)="submit()">
+      <mat-card-content>
+        <div>
+          <mat-form-field>
+            <mat-label>Number</mat-label>
+            <input matInput type="number" formControlName=number>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="date" formControlName=date>
+            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Company</mat-label>
+            <textarea matInput formControlName=company></textarea>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Billing to</mat-label>
+            <textarea matInput formControlName=billingFor></textarea>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Total value</mat-label>
+            <span matPrefix>$ &nbsp;</span>
+            <input matInput type="number" formControlName=totalValue>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Send to</mat-label>
+            <input matInput type="string" formControlName=sendTo>
+            <mat-hint align="start">Separate emails with `;`</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+          <button type="submit" mat-raised-button color="primary" [disabled]="!invoiceForm.valid">Login</button>
+        </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

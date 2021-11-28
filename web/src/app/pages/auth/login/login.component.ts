@@ -29,9 +29,10 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    this.invoiceClient.login(this.loginForm.value.token).subscribe({
+    const token = this.loginForm.value.token;
+    this.invoiceClient.login(token).subscribe({
       next: successData => {
-        this.authService.setLoggedIn();
+        this.authService.setLoggedIn(token);
         this.router.navigate(['/invoices/new']);
       },
       error: errorData => {
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         this.snackBar.open('Unexpected error', 'ok');
       }
-    })
+    });
   }
 
 }
