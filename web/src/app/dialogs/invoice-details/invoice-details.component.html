@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Invoice #{{data.invoice.number}}</h1>
+
+<div mat-dialog-content>
+  <p>
+    <strong>Id:</strong><br>
+    <span>{{data.invoice.id}}</span>
+  </p>
+
+  <p>
+    <strong>Number:</strong><br>
+    <span>{{data.invoice.number}}</span>
+  </p>
+
+  <p>
+    <strong>Date:</strong><br>
+    <span>{{data.invoice.date}}</span>
+  </p>
+
+  <p>
+    <strong>Company:</strong><br>
+    <span>{{data.invoice.company_data}}</span>
+  </p>
+
+  <p>
+    <strong>Billing for:</strong><br>
+    <span>{{(data.invoice.billing_for)}}</span>
+  </p>
+
+  <p>
+    <strong>Total value:</strong><br>
+    <span>{{data.invoice.total_value_cents / 100.0}}</span>
+  </p>
+
+  <p>
+    <strong>Sent to:</strong><br>
+    <li *ngFor="let email of data.emails;">
+      <span>{{email}}</span>
+    </li>
+  </p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="closeClick()">Close</button>
+</div>

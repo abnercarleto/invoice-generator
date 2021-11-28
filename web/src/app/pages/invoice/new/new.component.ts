@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { InvoiceClientService } from 'src/app/clients/invoice-client.service';
+import { InvoiceDetailsComponent } from 'src/app/dialogs/invoice-details/invoice-details.component';
 import { CreateInvoiceRequest } from 'src/app/models/invoice/create-invoice-request';
+import { CreateInvoiceResponse } from 'src/app/models/invoice/create-invoice-response';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -23,7 +26,8 @@ export class NewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private invoiceClient: InvoiceClientService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -43,10 +47,17 @@ export class NewComponent implements OnInit {
         }
       };
       this.invoiceClient.createInvoice(request, <String> this.authService.token).subscribe({
-        next: successData => { console.info('success', successData); },
+        next: successData => { this.openDetailsDialog(<CreateInvoiceResponse> successData) },
         error: errorData => { console.info('error', errorData); }
       })
     }
+  }
+
+  openDetailsDialog(data: CreateInvoiceResponse) {
+    const dialogRef = this.dialog.open(InvoiceDetailsComponent, {
+      width: '250px',
+      data: data,
+    });
   }
 
 }

@@ -10,18 +10,21 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { NewComponent } from './pages/invoice/new/new.component';
+import { InvoiceDetailsComponent } from './dialogs/invoice-details/invoice-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NewComponent
+    NewComponent,
+    InvoiceDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { NewComponent } from './pages/invoice/new/new.component';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
 
     AppRoutingModule,
     BrowserAnimationsModule
