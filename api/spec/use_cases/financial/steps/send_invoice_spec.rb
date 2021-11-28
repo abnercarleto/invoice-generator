@@ -26,7 +26,7 @@ RSpec.describe Financial::Steps::SendInvoice, type: :use_case do
       describe '#data' do
         subject { perform_use_case.data }
 
-        it { is_expected.to eq({ invoice: invoice }) }
+        it { is_expected.to eq({ invoice: invoice, emails: emails }) }
       end
     end
 

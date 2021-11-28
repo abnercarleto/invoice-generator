@@ -11,7 +11,7 @@ module Financial
           emails: emails
         ).send_as_file.deliver_now
 
-        Success result: { invoice: invoice }
+        Success result: { invoice: invoice, emails: emails }
       end
     end
   end
