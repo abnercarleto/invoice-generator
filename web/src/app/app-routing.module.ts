@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './gards/auth.guard';
+import { CreateTokenComponent } from './pages/auth/create-token/create-token.component';
 
 import { LoginComponent } from './pages/auth/login/login.component';
 import { NewComponent as InvoiceNewComponent } from './pages/invoice/new/new.component';
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'create-token',
+        component: CreateTokenComponent
       }
     ]
   },

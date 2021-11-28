@@ -24,6 +24,15 @@ export class InvoiceClientService {
     });
   }
 
+  createToken(email: string, permitRegenerate: Boolean = false): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/auth/token`, {
+      email: email,
+      permit_regenerate: permitRegenerate
+    }, {
+      headers: this.headers
+    });
+  }
+
   createInvoice(invoiceRequest: CreateInvoiceRequest, authToken: String): Observable<CreateInvoiceResponse> {
     return this.httpClient.post<CreateInvoiceResponse>(`${this.baseUrl}/invoices`, invoiceRequest, {
       headers: this.headers.append('x-auth-token', <string> authToken)

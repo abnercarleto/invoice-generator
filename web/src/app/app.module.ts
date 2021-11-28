@@ -11,6 +11,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,13 +19,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { NewComponent } from './pages/invoice/new/new.component';
 import { InvoiceDetailsComponent } from './dialogs/invoice-details/invoice-details.component';
+import { CreateTokenComponent } from './pages/auth/create-token/create-token.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NewComponent,
-    InvoiceDetailsComponent
+    InvoiceDetailsComponent,
+    CreateTokenComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { InvoiceDetailsComponent } from './dialogs/invoice-details/invoice-detai
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatCheckboxModule,
 
     AppRoutingModule,
     BrowserAnimationsModule

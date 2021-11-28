@@ -1,0 +1,22 @@
+<div class="main-div">
+  <mat-card>
+    <mat-card-title>Create token</mat-card-title>
+      <form [formGroup]="createTokenForm" (ngSubmit)="submit()">
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName=email>
+          </mat-form-field>
+
+          <div>
+            <mat-checkbox formControlName="permitRegenerate">Permit regenate?</mat-checkbox>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button type="submit" mat-raised-button color="primary" [disabled]="!createTokenForm.valid">Create</button>
+        </mat-card-actions>
+      </form>
+
+  </mat-card>
+</div>
